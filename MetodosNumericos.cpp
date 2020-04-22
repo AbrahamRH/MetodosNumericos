@@ -29,7 +29,7 @@
 void MetodosNumericos::reglaDelTrapecio(float a, float b, size_t iteraciones)
 { 
   //Definimos una constante con el valor real de la integral obtenida previamente
-  const float INTEGRAL = .2376;
+  const float INTEGRAL = .9973;
 
   MetodosNumericos print, rnd;
 
@@ -50,8 +50,8 @@ void MetodosNumericos::reglaDelTrapecio(float a, float b, size_t iteraciones)
     */
     for(float x = a; x <= b ; x+=h){
       X.push_back(rnd.redondear(x));
-      /*Funcion Sen(x)/x*/
-      Y.push_back(rnd.redondear(sin(x)/x));
+      /*Funcion (1/raiz(2*pi))*e^(-0.5*x²) */
+      Y.push_back(rnd.redondear((1/sqrtf(2*M_PI))*(exp(-0.5*x*x))));
     } 
 
     for(size_t i = 1; i < Y.size()-1 ; ++i){
@@ -75,11 +75,12 @@ void MetodosNumericos::reglaDelTrapecio(float a, float b, size_t iteraciones)
     std::cout << "=====================================" << std::endl;
     std::cout << "Integral n = " << n << std::endl << std::endl;
     std::cout << "I = " << integral << std::endl << std::endl;
+    std::cout << "h = " << rnd.redondear(h) << std::endl << std::endl;
     std::cout << "Error relativo = " << eRel << "%" << std::endl << std::endl;
     std::cout << "Error absoluto = " << eAbs << std::endl << std::endl;
-
+    
     if ( n != 1 ){
-      std::cout << "Error relativo = " << eAprox << std::endl << std::endl;
+      std::cout << "Error Aproximado = " << eAprox << std::endl << std::endl;
     }
 
     print.printTable(X,Y);

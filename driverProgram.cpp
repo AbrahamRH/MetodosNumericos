@@ -28,7 +28,7 @@
 
 int main(){
 	MetodosNumericos integral;
-	integral.reglaDelTrapecio(M_PI/2,M_PI*3/2,10);
+	integral.reglaDelTrapecio(-3,3,10);
 	return 0;
 }
 
