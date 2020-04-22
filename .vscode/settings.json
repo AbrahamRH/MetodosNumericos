@@ -44,5 +44,15 @@
         "streambuf": "cpp",
         "typeinfo": "cpp",
         "bit": "cpp"
+    },
+
+    "code-runner.executorMap": {
+        "c++": "cd $dir && g++ $fileName -o {$fileName}.out -g {$dir}MetodosNumericos.cpp {$dir}MetodosNumericos.hpp && {$dir}{$fileName}.out"
+    },
+    "code-runner.executorMapByFileExtension": {
+        "c++": "cd $dir && g++ $fileName -o {$fileName}.out -g {$dir}MetodosNumericos.cpp {$dir}MetodosNumericos.hpp && {$dir}{$fileName}.out"
+    },
+    "code-runner.executorMapByGlob": {
+        "c++": "cd $dir && g++ $fileName -o {$fileName}.out -g {$dir}MetodosNumericos.cpp {$dir}MetodosNumericos.hpp && {$dir}{$fileName}.out"
     }
 }

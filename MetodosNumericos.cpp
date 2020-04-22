@@ -24,18 +24,7 @@
  * @date 2020-04-20
  */
 
-#include <iostream>
-#include <cmath>
-#include <vector>
-
-class MetodosNumericos
-{
-private:
-public:
-  void reglaDelTrapecio(float a, float b, size_t iteraciones);
-  void printTable(std::vector<float> x, std::vector<float> y);
-  float redondear(float n){ return (int)(n * 10000.0)/10000.0; };
-};
+#include "MetodosNumericos.hpp"
 
 void MetodosNumericos::reglaDelTrapecio(float a, float b, size_t iteraciones)
 { 
@@ -103,15 +92,4 @@ void MetodosNumericos::printTable(std::vector<float> x, std::vector<float> y){
     std::cout << x[i] << "  |" << y[i] << std::endl;
   }
 }
-
-
-int main(){
-	MetodosNumericos integral;
-	integral.reglaDelTrapecio(M_PI/2,M_PI*3/2,10);
-	return 0;
-    
-}
-
-
-
 

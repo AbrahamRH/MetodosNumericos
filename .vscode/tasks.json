@@ -9,7 +9,9 @@
 				"-std=c++11",
                 "${file}",
                 "-o",
-                "${fileDirname}.out"
+                "${file}.out",
+                "${fileDirname}/MetodosNumericos.cpp",
+                "${fileDirname}/MetodosNumericos.hpp"
             ],
             "options": {
                 "cwd": "/usr/bin"
