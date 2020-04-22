@@ -20,7 +20,7 @@
  * @file MetodosNumericos.cpp
  * @brief Implementación de metodos numéricos en c++
  * @author AbrahamRH
- * @version 1.1
+ * @version 1.2
  * @date 2020-04-20
  */
 
@@ -32,12 +32,12 @@ class MetodosNumericos
 {
 private:
 public:
-  void reglaDelTrapecio(float a, float b, size_t max);
+  void reglaDelTrapecio(float a, float b, size_t iteraciones);
   void printTable(std::vector<float> x, std::vector<float> y);
   float redondear(float n){ return (int)(n * 10000.0)/10000.0; };
 };
 
-void MetodosNumericos::reglaDelTrapecio(float a, float b, size_t max)
+void MetodosNumericos::reglaDelTrapecio(float a, float b, size_t iteraciones)
 { 
   //Definimos una constante con el valor real de la integral obtenida previamente
   const float INTEGRAL = .2376;
@@ -47,7 +47,7 @@ void MetodosNumericos::reglaDelTrapecio(float a, float b, size_t max)
   //Valor de la integral inmediata anterior para obtener el error aproximado
   float anterior = 0;
 
-  for (size_t n = 1; n <= max ; ++n){
+  for (size_t n = 1; n <= iteraciones ; ++n){
     std::vector<float> X;
     std::vector<float> Y;
     float h = (b - a)/n;
@@ -55,6 +55,10 @@ void MetodosNumericos::reglaDelTrapecio(float a, float b, size_t max)
     float suma = 0;
     float eRel, eAbs, eAprox;
 
+    /*
+      LLenamos las tablas para Xa a Xb con incremento de h, 
+      y aplicamos f(x) para obtener y
+    */
     for(float x = a; x <= b ; x+=h){
       X.push_back(rnd.redondear(x));
       /*Funcion Sen(x)/x*/
@@ -65,8 +69,14 @@ void MetodosNumericos::reglaDelTrapecio(float a, float b, size_t max)
       suma += Y[i];
     }   
     
+    /*
+      Aplicamos la formula del metodo de integración
+      I = (b-a)(Ya + 2*Suma(Ya+1, Yb-1) + Yb)/2*n
+    */
     integral = rnd.redondear((b - a)*( Y[0] + 2*suma + Y[Y.size()-1])/(2*n));
 
+
+    //Obtenemos los diferentes tipos de errores para cada iteración 
     eRel = rnd.redondear(fabsf(100*(INTEGRAL - integral)/INTEGRAL));
     eAbs = fabsf(rnd.redondear(INTEGRAL - integral));
     eAprox = fabsf(rnd.redondear(integral - anterior));
