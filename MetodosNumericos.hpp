@@ -27,48 +27,58 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <iomanip>
 
-#ifndef METODOSNUMERICOS
-#define METODOSNUMERICOS
+#ifndef _METODOS_NUMERICOS_
+#define _METODOS_NUMERICOS_
 
-class MetodosNumericos
-{
-private:
-public:
+namespace MetodosNumericos{
+	class Integracion
+	{
+	public:
 
-	/* -------------------------------*/
-	/**
-	 * @brief Aplicación de la regla del trapecio en funciones para su integración definida
-	 *
-	 * @param float	Valor inicial de la integral definida (a)
-	 * @param float Valor final de la integral definida	(b)
-	 * @param size_t Número de iteraciones que se desean para calcullar su integral
-	 */
-	/* -------------------------------*/
-  void reglaDelTrapecio(float, float, size_t);
+		Integracion(){}
+
+		~Integracion(){}
+
+		/* -------------------------------*/
+		/**
+		 * @brief Aplicación de la regla del trapecio en funciones para su integración definida
+		 *
+		 * @param float	Valor inicial de la integral definida (a)
+		 * @param float Valor final de la integral definida	(b)
+		 * @param size_t Número de iteraciones que se desean para calcullar su integral
+		 */
+		/* -------------------------------*/
+		void reglaDelTrapecio(float, float, size_t);
+	};
+
+		/*=========================================================================================
+																		Funciones miceláneas
+		==========================================================================================*/
+
+		/* -------------------------------*/
+		/**
+		 * @brief Imprime una tabla [ x | f(x)] verticalmente a partir de 2 vectores
+		 *
+		 * @param std::vector primer vector con los valoes de X
+		 * @param std::vector segundo vector con los valores de f(x)
+		 */
+		/* -------------------------------*/
+		void printTable(std::vector<float>, std::vector<float>);
 
 
-	/* -------------------------------*/
-	/**
-	 * @brief Imprime una tabla [ x | f(x)] verticalmente a partir de 2 vectores
-	 *
-	 * @param std::vector primer vector con los valoes de X
-	 * @param std::vector segudon vector con los valores de f(x)
-	 */
-	/* -------------------------------*/
-  void printTable(std::vector<float>, std::vector<float>);
+		/* -------------------------------*/
+		/**
+		 * @brief Función para redondear valores flotantes a 4 digitos despues del punto decimal
+		 *
+		 * @param float Número que se desea redondear
+		 *
+		 * @return Número redondeado
+		 */
+		/* -------------------------------*/
+		float redondear(float);
 
-
-	/* -------------------------------*/
-	/**
-	 * @brief Función para redondear valores flotantes a 4 digitos despues del punto decimal
-	 *
-	 * @param n Número que se desea redondear
-	 *
-	 * @return Número redondeado
-	 */
-	/* -------------------------------*/
-  float redondear(float n){ return (int)(n * 10000.0)/10000.0; };
-};
+}
 
 #endif

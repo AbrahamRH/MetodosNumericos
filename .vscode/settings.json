@@ -43,7 +43,9 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp",
-        "bit": "cpp"
+        "bit": "cpp",
+        "ctime": "cpp",
+        "iomanip": "cpp"
     },
 
     "code-runner.executorMap": {
