@@ -30,7 +30,10 @@ using namespace MetodosNumericos;
 
 int main(){
 	Integracion integral;
-	integral.reglaDelTrapecio(-3,3,10);
+	integral.reglaDelTrapecio(-3,3,4);
+
+	std::cout << std::endl <<"Metodo Simpson" << std::endl;
+	integral.reglasDeSimpson(-3,0,3);
 
 	return 0;
 }

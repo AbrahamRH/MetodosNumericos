@@ -45,12 +45,24 @@ namespace MetodosNumericos{
 		/**
 		 * @brief Aplicación de la regla del trapecio en funciones para su integración definida
 		 *
-		 * @param float	Valor inicial de la integral definida (a)
-		 * @param float Valor final de la integral definida	(b)
+		 * @param float	Valor inicial de la integral definida
+		 * @param float Valor final de la integral definida
 		 * @param size_t Número de iteraciones que se desean para calcullar su integral
 		 */
 		/* -------------------------------*/
 		void reglaDelTrapecio(float, float, size_t);
+
+
+		/* -------------------------------*/
+		/**
+		 * @brief Aplicación de las reglas de Simpson de tres octavos más un tercio para la integración
+		 *
+		 * @param float Punto inicial de la integral
+		 * @param float Punto intermedio para la aplicacion de la regla a tres octavos
+		 * @param float Punto final de la integral definida
+		 */
+		/* -------------------------------*/
+		void reglasDeSimpson(float ,float ,float);
 	};
 
 		/*=========================================================================================

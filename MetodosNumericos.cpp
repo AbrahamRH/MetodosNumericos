@@ -88,6 +88,53 @@ namespace MetodosNumericos{
 		}
 	}
 
+	void Integracion::reglasDeSimpson(float a, float b, float c)
+	{
+		//Definimos una constante con el valor real de la integral obtenida previamente
+		const float INTEGRAL = .9973;
+
+		//Integral total, tres octavos (h1) y un tercio (h2)
+		float integral, I3_8, I1_3;
+		float h1 = (b-a)/3;	//n = 3
+		float h2 = (c-b)/2; //n = 2
+
+		float eRel;
+		float eAbs;
+
+		std::vector<float> X;
+		std::vector<float> Y;
+
+		//Llenamos el vector de a hasta b con paso de h1
+		for(float x = a; x <= b ; x+=h1){
+				X.push_back(redondear(x));
+				Y.push_back(redondear((1/sqrtf(2*M_PI))*(exp(-0.5*x*x))));
+		}
+		I3_8 = (b-a)*(Y[0] + 3*(Y[1] + Y[2]) + Y[3])/8;
+
+
+		//Llenamos el vector de b hasta c con paso de h2
+		for(float x = b; x <= c ; x+=h2){
+				X.push_back(redondear(x));
+				Y.push_back(redondear((1/sqrtf(2*M_PI))*(exp(-0.5*x*x))));
+		}
+
+		I1_3 = (c-b)*(Y[4] + 4*Y[5] + Y[6])/6;
+
+		integral = I1_3 + I3_8;
+
+		eRel = redondear(fabsf(100*(INTEGRAL - integral)/INTEGRAL));
+		eAbs = fabsf(redondear(INTEGRAL - integral));
+
+		std::cout << "=====================================" << std::endl;
+		std::cout << "I = " << integral << std::endl << std::endl;
+		std::cout << "h (a - b)= " << redondear(h1) << std::endl << std::endl;
+		std::cout << "h (b - c)= " << redondear(h2) << std::endl << std::endl;
+		std::cout << "Error relativo = " << eRel << "%" << std::endl << std::endl;
+		std::cout << "Error absoluto = " << eAbs << std::endl << std::endl;
+
+		printTable(X,Y);
+	}
+
 	void printTable(std::vector<float> x, std::vector<float> y)
 	{
 		std::cout << " x	 |   f(x)       " << std::endl;
