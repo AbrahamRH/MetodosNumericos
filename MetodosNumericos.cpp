@@ -135,6 +135,31 @@ namespace MetodosNumericos{
 		printTable(X,Y);
 	}
 
+	void Interpolacion::espaciosIguales(std::vector<float> X , std::vector<float> Y, float xk)
+	{
+		float h = fabsf(X[1] - X[0]);
+		float grado = X.size() - 1;
+		float k;
+
+		std::vector<float> Dif_1;
+		std::vector<float> Dif_2;
+		std::vector<float> Dif_3;
+		std::vector<float> Dif_4;
+
+		for(size_t i = 0; (xk < X[i] and xk > X[i-1]); ++i){
+			k = (xk-X[i-1])/h;
+		}
+
+	}
+
+	float combinacion(float k, float j)
+	{
+		if(j == 0)
+			return (k)*tgamma(k)/(tgamma(j+1)*(k-j)*tgamma(k-j));
+		else
+			return (k)*tgamma(k)/(j*tgamma(j)*(k-j)*tgamma(k-j));
+	}
+
 	void printTable(std::vector<float> x, std::vector<float> y)
 	{
 		std::cout << " x	 |   f(x)       " << std::endl;

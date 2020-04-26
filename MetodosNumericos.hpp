@@ -65,6 +65,28 @@ namespace MetodosNumericos{
 		void reglasDeSimpson(float ,float ,float);
 	};
 
+	class Interpolacion
+	{
+	public:
+
+		Interpolacion(){}
+
+		~Interpolacion(){}
+
+
+		/* -------------------------------*/
+		/**
+		 * @brief Aplicación del método de espacios iguales para interpolación (hasta polinomios de grado 4)
+		 *
+		 * @param std::vector Tabla de valores de la variable independiente X
+		 * @param std::vector	Tabla de valores de la variable dependiente Y
+		 * @param float Valor que se busca que se busca estimar para la función tabular
+		 */
+		/* -------------------------------*/
+		void espaciosIguales(std::vector<float>, std::vector<float>, float);
+	};
+
+
 		/*=========================================================================================
 																		Funciones miceláneas
 		==========================================================================================*/
@@ -90,6 +112,22 @@ namespace MetodosNumericos{
 		 */
 		/* -------------------------------*/
 		float redondear(float);
+
+
+		/* -------------------------------*/
+		/**
+		 * @brief Función para calcular combinaciones sin repetición con números enteros tanto flotantes
+		 *
+		 * @param float Elementos a tomar
+		 * @param float Numeros de elemetos de la colección
+		 *
+		 * @return Resultado de la combinación
+		 */
+		/* -------------------------------*/
+		float combinacion(float, float);
+
+
+		std::vector<float> obtenerDiferencias(std::vector<float>);
 
 }
 

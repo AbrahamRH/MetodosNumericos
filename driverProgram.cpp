@@ -29,11 +29,13 @@
 using namespace MetodosNumericos;
 
 int main(){
-	Integracion integral;
+	/* Integracion integral;
 	integral.reglaDelTrapecio(-3,3,4);
 
 	std::cout << std::endl <<"Metodo Simpson" << std::endl;
-	integral.reglasDeSimpson(-3,0,3);
+	integral.reglasDeSimpson(-3,0,3); */
+
+	std::cout << combinacion(.5,0) << std::endl;
 
 	return 0;
 }
