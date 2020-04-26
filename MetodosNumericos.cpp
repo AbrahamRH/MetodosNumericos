@@ -150,6 +150,8 @@ namespace MetodosNumericos{
 			k = (xk-X[i-1])/h;
 		}
 
+		/*TODO: Realizar tablas de diferencias*/
+
 	}
 
 	float combinacion(float k, float j)
