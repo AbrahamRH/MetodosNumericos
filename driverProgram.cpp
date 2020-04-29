@@ -20,7 +20,7 @@
  * @file driverProgram.cpp
  * @brief Driver Program para los metodos numéricos
  * @author AbrahamRH
- * @version 1.3
+ * @version 1.4
  * @date 2020-04-22
  */
 
@@ -30,9 +30,12 @@ using namespace MetodosNumericos;
 
 int main()
 {
-	Integracion integral;
+	/* Integracion integral;
 	integral.reglaDelTrapecio(.5,3,10);
-	integral.reglasDeSimpson(.5,1.25,3);
+	integral.reglasDeSimpson(.5,1.25,3); */
+
+	Interpolacion metodos;
+	metodos.espaciosIguales({0,1,2,3,4},{1,3,12,9,3},1.5);
 	return 0;
 }
 

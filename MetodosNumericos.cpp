@@ -20,7 +20,7 @@
  * @file MetodosNumericos.cpp
  * @brief Implementación de metodos numéricos en c++
  * @author AbrahamRH
- * @version 1.3
+ * @version 1.4
  * @date 2020-04-20
  */
 
@@ -146,10 +146,17 @@ namespace MetodosNumericos{
 			k = (xk-X[i-1])/h;
 		}
 
+		//Obtenemos la primer parte de las diferencias finitas hacia delante
 		Dif_1 = obtenerDiferencias(Y);
 		Dif_2 = obtenerDiferencias(Dif_1);
 		Dif_3 = obtenerDiferencias(Dif_2);
 		Dif_4 = obtenerDiferencias(Dif_3);
+
+		//Obtenemos la segunda parte de las diferencias finitas hacia atras
+		for(size_t i = 0; i < Dif_1.size(); ++i){ Dif_4.push_back(Dif_4[0]); }
+		Dif_3 = obtenerDiferencias(Dif_3,Dif_4,true);
+		Dif_2 = obtenerDiferencias(Dif_2,Dif_3,true);
+		Dif_1 = obtenerDiferencias(Dif_1,Dif_2,true);
 
 		printDiferencias(Dif_1,Dif_2,Dif_3,Dif_4);
 
@@ -180,29 +187,35 @@ namespace MetodosNumericos{
 
 	void printDiferencias(std::vector<float> Dif_1,std::vector<float> Dif_2, std::vector<float> Dif_3, std::vector<float> Dif_4)
 	{
-		std::cout << " Y1	|Y2	|Y3	|Y4  " << std::endl;
+		std::cout << "Tabla de diferencias" << std::endl << std::endl;
+
+		std::cout << " Y1	| Y2	 |  Y3	 | Y4  " << std::endl;
 		for ( size_t i = 0; i <  Dif_1.size(); i++){
 			if(Dif_1[i] < 0 )
-				std::cout << std::fixed << std::setprecision(4) << Dif_1[i] << "|" << Dif_2[i] << "|" << Dif_3[i] << "|" << Dif_4[i] << std::endl;
+				std::cout << std::fixed << std::setprecision(4) << Dif_1[i] << " | " << Dif_2[i] << " | " << Dif_3[i] << " | " << Dif_4[i] << std::endl;
 			else
-				std::cout << std::fixed << std::setprecision(4) << " " << Dif_1[i] << "|" << Dif_2[i] << "|" << Dif_3[i] << "|" << Dif_4[i] << std::endl;
+				std::cout << std::fixed << std::setprecision(4) << " " << Dif_1[i] << " | " << Dif_2[i] << " | " << Dif_3[i] << " | " << Dif_4[i] << std::endl;
 		}
+		std::cout << "==========================================" << std::endl << std::endl;
 	}
 
 	float redondear(float n){ return (int)(n * 10000.0)/10000.0; };
 
-	std::vector<float> obtenerDiferencias(std::vector<float> tabla/*,std::optional<std::vector<float>> Diferencia2 ,std::optional<bool> bandera = false*/)
+	std::vector<float> obtenerDiferencias(std::vector<float> diferencia1, std::optional<std::vector<float>> diferencia2,std::optional<bool> bandera)
 	{
-		//if(bandera == false){
+		if(bandera.value_or(false)){
+			/*Para obtener los valores finales de la tabla de diferencias con los valores anteriores*/
+			while(diferencia1.size() !=  diferencia2.value().size()){
+				diferencia1.push_back(diferencia2.value()[diferencia1.size()-1]+diferencia1[diferencia1.size()-1]);
+			}
+			return diferencia1;
+		}else{
+			/*Obtenemos la primer parte de la tabla de diferencias finitas*/
 			std::vector<float> diferencia;
-			for(size_t i = 0; i < tabla.size()- 1; ++i){
-				diferencia.push_back(tabla[i+1]-tabla[i]);
+			for(size_t i = 0; i < diferencia1.size()- 1; ++i){
+				diferencia.push_back(diferencia1[i+1]-diferencia1[i]);
 			}
 			return diferencia;
-		//}else{
-			//TODO Realizar tabla de dferencias hacia atras
-			//return {};
-		//}
+		}
 	}
-
 }

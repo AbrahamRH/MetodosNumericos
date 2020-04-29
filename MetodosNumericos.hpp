@@ -20,7 +20,7 @@
  * @file MetodosNumericos.hpp
  * @brief Fichero de cabecera para el archivo de métodos numéricos
  * @author AbrahamRH
- * @version 1.3
+ * @version 1.4
  * @date 2020-04-22
  */
 
@@ -128,7 +128,7 @@ namespace MetodosNumericos{
 		float combinacion(float, float);
 
 
-		std::vector<float> obtenerDiferencias(std::vector<float>/*,std::optional<std::vector<float>> = {},std::optional<bool> = false*/);
+		std::vector<float> obtenerDiferencias(std::vector<float>,std::optional<std::vector<float>> = std::nullopt,std::optional<bool> = std::nullopt);
 
 
 		void printDiferencias(std::vector<float>,std::vector<float> = {},std::vector<float> = {},std::vector<float> = {});
