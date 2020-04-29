@@ -20,7 +20,7 @@
  * @file MetodosNumericos.hpp
  * @brief Fichero de cabecera para el archivo de métodos numéricos
  * @author AbrahamRH
- * @version 1.0
+ * @version 1.3
  * @date 2020-04-22
  */
 
@@ -28,6 +28,7 @@
 #include <cmath>
 #include <vector>
 #include <iomanip>
+#include <optional>
 
 #ifndef _METODOS_NUMERICOS_
 #define _METODOS_NUMERICOS_
@@ -127,7 +128,10 @@ namespace MetodosNumericos{
 		float combinacion(float, float);
 
 
-		std::vector<float> obtenerDiferencias(std::vector<float>);
+		std::vector<float> obtenerDiferencias(std::vector<float>/*,std::optional<std::vector<float>> = {},std::optional<bool> = false*/);
+
+
+		void printDiferencias(std::vector<float>,std::vector<float> = {},std::vector<float> = {},std::vector<float> = {});
 
 }
 

@@ -20,7 +20,7 @@
  * @file MetodosNumericos.cpp
  * @brief Implementación de metodos numéricos en c++
  * @author AbrahamRH
- * @version 1.2
+ * @version 1.3
  * @date 2020-04-20
  */
 
@@ -31,7 +31,7 @@ namespace MetodosNumericos{
 	void Integracion::reglaDelTrapecio(float a, float b, size_t iteraciones)
 	{
 		//Definimos una constante con el valor real de la integral obtenida previamente
-		const float INTEGRAL = .9973;
+		const float INTEGRAL = 9.566;
 
 		//Valor de la integral inmediata anterior para obtener el error aproximado
 		float anterior = 0;
@@ -49,20 +49,16 @@ namespace MetodosNumericos{
 				LLenamos las tablas para Xa a Xb con incremento de h,
 				y aplicamos f(x) para obtener y
 			*/
-			for(float x = a; x <= b ; x+=h){
+			for(float x = a; x <= b + .1 ; x+=h){
 				X.push_back(redondear(x));
 				/*Funcion (1/raiz(2*pi))*e^(-0.5*x²) */
-				Y.push_back(redondear((1/sqrtf(2*M_PI))*(exp(-0.5*x*x))));
+				Y.push_back(redondear(sqrtf(1+x*x*x*x)));
 			}
 
 			for(size_t i = 1; i < Y.size()-1 ; ++i){
 				suma += Y[i];
 			}
 
-			/*
-				Aplicamos la formula del metodo de integración
-				I = (b-a)(Ya + 2*Suma(Ya+1, Yb-1) + Yb)/2*n
-			*/
 			integral = redondear((b - a)*( Y[0] + 2*suma + Y[Y.size()-1])/(2*n));
 
 
@@ -91,7 +87,7 @@ namespace MetodosNumericos{
 	void Integracion::reglasDeSimpson(float a, float b, float c)
 	{
 		//Definimos una constante con el valor real de la integral obtenida previamente
-		const float INTEGRAL = .9973;
+		const float INTEGRAL = 9.566;
 
 		//Integral total, tres octavos (h1) y un tercio (h2)
 		float integral, I3_8, I1_3;
@@ -107,7 +103,7 @@ namespace MetodosNumericos{
 		//Llenamos el vector de a hasta b con paso de h1
 		for(float x = a; x <= b ; x+=h1){
 				X.push_back(redondear(x));
-				Y.push_back(redondear((1/sqrtf(2*M_PI))*(exp(-0.5*x*x))));
+				Y.push_back(redondear(sqrtf(1+x*x*x*x)));
 		}
 		I3_8 = (b-a)*(Y[0] + 3*(Y[1] + Y[2]) + Y[3])/8;
 
@@ -115,7 +111,7 @@ namespace MetodosNumericos{
 		//Llenamos el vector de b hasta c con paso de h2
 		for(float x = b; x <= c ; x+=h2){
 				X.push_back(redondear(x));
-				Y.push_back(redondear((1/sqrtf(2*M_PI))*(exp(-0.5*x*x))));
+				Y.push_back(redondear(sqrtf(1+x*x*x*x)));
 		}
 
 		I1_3 = (c-b)*(Y[4] + 4*Y[5] + Y[6])/6;
@@ -150,7 +146,16 @@ namespace MetodosNumericos{
 			k = (xk-X[i-1])/h;
 		}
 
-		/*TODO: Realizar tablas de diferencias*/
+		Dif_1 = obtenerDiferencias(Y);
+		Dif_2 = obtenerDiferencias(Dif_1);
+		Dif_3 = obtenerDiferencias(Dif_2);
+		Dif_4 = obtenerDiferencias(Dif_3);
+
+		printDiferencias(Dif_1,Dif_2,Dif_3,Dif_4);
+
+
+
+
 
 	}
 
@@ -173,6 +178,31 @@ namespace MetodosNumericos{
 		}
 	}
 
+	void printDiferencias(std::vector<float> Dif_1,std::vector<float> Dif_2, std::vector<float> Dif_3, std::vector<float> Dif_4)
+	{
+		std::cout << " Y1	|Y2	|Y3	|Y4  " << std::endl;
+		for ( size_t i = 0; i <  Dif_1.size(); i++){
+			if(Dif_1[i] < 0 )
+				std::cout << std::fixed << std::setprecision(4) << Dif_1[i] << "|" << Dif_2[i] << "|" << Dif_3[i] << "|" << Dif_4[i] << std::endl;
+			else
+				std::cout << std::fixed << std::setprecision(4) << " " << Dif_1[i] << "|" << Dif_2[i] << "|" << Dif_3[i] << "|" << Dif_4[i] << std::endl;
+		}
+	}
+
 	float redondear(float n){ return (int)(n * 10000.0)/10000.0; };
+
+	std::vector<float> obtenerDiferencias(std::vector<float> tabla/*,std::optional<std::vector<float>> Diferencia2 ,std::optional<bool> bandera = false*/)
+	{
+		//if(bandera == false){
+			std::vector<float> diferencia;
+			for(size_t i = 0; i < tabla.size()- 1; ++i){
+				diferencia.push_back(tabla[i+1]-tabla[i]);
+			}
+			return diferencia;
+		//}else{
+			//TODO Realizar tabla de dferencias hacia atras
+			//return {};
+		//}
+	}
 
 }

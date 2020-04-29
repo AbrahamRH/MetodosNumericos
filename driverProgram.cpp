@@ -20,7 +20,7 @@
  * @file driverProgram.cpp
  * @brief Driver Program para los metodos numéricos
  * @author AbrahamRH
- * @version 1.0
+ * @version 1.3
  * @date 2020-04-22
  */
 
@@ -28,15 +28,11 @@
 
 using namespace MetodosNumericos;
 
-int main(){
-	/* Integracion integral;
-	integral.reglaDelTrapecio(-3,3,4);
-
-	std::cout << std::endl <<"Metodo Simpson" << std::endl;
-	integral.reglasDeSimpson(-3,0,3); */
-
-	std::cout << combinacion(.5,0) << std::endl;
-
+int main()
+{
+	Integracion integral;
+	integral.reglaDelTrapecio(.5,3,10);
+	integral.reglasDeSimpson(.5,1.25,3);
 	return 0;
 }
 
