@@ -20,7 +20,7 @@
  * @file MetodosNumericos.hpp
  * @brief Fichero de cabecera para el archivo de métodos numéricos
  * @author AbrahamRH
- * @version 1.4
+ * @version 1.5
  * @date 2020-04-22
  */
 
@@ -128,9 +128,30 @@ namespace MetodosNumericos{
 		float combinacion(float, float);
 
 
+		/* -------------------------------*/
+		/**
+		 * @brief Función para obtener vectores de las diferencias finitas (Tabla de diferencias finitas )
+		 *
+		 * @param std::vector Tabla de X (si unicamente se pasa este parámetro), ó vector de la diferencia que se deseaobtener, haciendo obteniendo las diferencias hacia atrás.
+		 * @param std::optional Vector (opcional) apartir del cual se obtendran las diferencias hacia atrás.
+		 * @param std::optional Bandera (opcional) para saber si se construyen los vectores hacia adelante o atras; true: atras | false(default): hacia adelante.
+		 *
+		 * @return Vector con las diferencias
+		 */
+		/* -------------------------------*/
 		std::vector<float> obtenerDiferencias(std::vector<float>,std::optional<std::vector<float>> = std::nullopt,std::optional<bool> = std::nullopt);
 
 
+		/* -------------------------------*/
+		/**
+		 * @brief Función para imprimir las diferencias en forma de tabla
+		 *
+		 * @param std::vector Vcetor con la diferencia 1
+		 * @param std::vector Vector con la diferencia 2
+		 * @param std::vector Vector con la diferencia 3
+		 * @param std::vector Vector con la diferencia 4
+		 */
+		/* -------------------------------*/
 		void printDiferencias(std::vector<float>,std::vector<float> = {},std::vector<float> = {},std::vector<float> = {});
 
 }

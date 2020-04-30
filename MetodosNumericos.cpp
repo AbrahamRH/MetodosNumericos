@@ -20,7 +20,7 @@
  * @file MetodosNumericos.cpp
  * @brief Implementación de metodos numéricos en c++
  * @author AbrahamRH
- * @version 1.4
+ * @version 1.5
  * @date 2020-04-20
  */
 
@@ -135,16 +135,14 @@ namespace MetodosNumericos{
 	{
 		float h = fabsf(X[1] - X[0]);
 		float grado = X.size() - 1;
-		float k;
+		float k, yk;
+		size_t j;
 
 		std::vector<float> Dif_1;
 		std::vector<float> Dif_2;
 		std::vector<float> Dif_3;
 		std::vector<float> Dif_4;
 
-		for(size_t i = 0; (xk < X[i] and xk > X[i-1]); ++i){
-			k = (xk-X[i-1])/h;
-		}
 
 		//Obtenemos la primer parte de las diferencias finitas hacia delante
 		Dif_1 = obtenerDiferencias(Y);
@@ -160,9 +158,13 @@ namespace MetodosNumericos{
 
 		printDiferencias(Dif_1,Dif_2,Dif_3,Dif_4);
 
+		for(size_t i = 0; not (xk < X[i] and xk > X[i-1]); ++i){
+			j=i-1;
+		}
 
-
-
+		k = (xk-X[j])/h;
+		yk = combinacion(k,0)*Y[0] + combinacion(k,1)*Dif_1[j] + combinacion(k,2)*Dif_2[j] + combinacion(k,3)*Dif_3[j] + combinacion(k,4)*Dif_4[j];
+		std::cout << "f(xk) = "<< redondear(yk) << std::endl;
 
 	}
 
