@@ -158,6 +158,9 @@ namespace MetodosNumericos{
 		/* -------------------------------*/
 		void printDiferencias(std::vector<float> ,std::vector<float> ,std::vector<float> ,std::vector<float>);
 
+
+		float obtenerB(std::vector<float> &, std::vector<float> &, size_t, size_t);
+
 }
 
 #endif

@@ -216,9 +216,27 @@ namespace MetodosNumericos
 
 	}
 
-	void Interpolacion::polinomioNewton(std::vector<float> X, std::vector<float>, float xk)
+	void Interpolacion::polinomioNewton(std::vector<float> X, std::vector<float> Y, float xk)
 	{
+		std::vector<float> valoresB;
+		for(size_t i = 0; i < X.size(); ++i){
+			valoresB.push_back(obtenerB(X,Y,i,0));
+		}
 
+		std::cout << "Los valores de b son:" << std::endl;
+		for(size_t i = 0; i < valoresB.size(); ++i){
+			std::cout << "\tb_" << i << " = " << valoresB[i] << std::endl;
+		}
+
+		//TODO: Obtener interpolación para xk y obtener los pasos de obtencion de b
+ 	}
+
+	float obtenerB(std::vector<float>& X, std::vector<float>& Y, size_t fin, size_t inicio){
+		if(inicio == fin){
+			return Y[inicio];
+		} else {
+			return (obtenerB(X,Y,fin,inicio+1)- obtenerB(X,Y,fin-1,inicio))/(X[fin]-X[inicio]);
+		}
 	}
 
 	float combinacion(float k, float j)
