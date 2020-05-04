@@ -20,7 +20,7 @@
  * @file MetodosNumericos.hpp
  * @brief Fichero de cabecera para el archivo de métodos numéricos
  * @author AbrahamRH
- * @version 1.5
+ * @version 1.6
  * @date 2020-04-22
  */
 
@@ -85,6 +85,10 @@ namespace MetodosNumericos{
 		 */
 		/* -------------------------------*/
 		void espaciosIguales(std::vector<float>, std::vector<float>, float);
+
+
+
+		void polinomioNewton(std::vector<float>, std::vector<float>, float);
 	};
 
 
@@ -152,7 +156,7 @@ namespace MetodosNumericos{
 		 * @param std::vector Vector con la diferencia 4
 		 */
 		/* -------------------------------*/
-		void printDiferencias(std::vector<float>,std::vector<float> = {},std::vector<float> = {},std::vector<float> = {});
+		void printDiferencias(std::vector<float> ,std::vector<float> ,std::vector<float> ,std::vector<float>);
 
 }
 

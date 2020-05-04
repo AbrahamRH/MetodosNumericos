@@ -20,14 +20,14 @@
  * @file MetodosNumericos.cpp
  * @brief Implementación de metodos numéricos en c++
  * @author AbrahamRH
- * @version 1.5
+ * @version 1.6
  * @date 2020-04-20
  */
 
 #include "MetodosNumericos.hpp"
 
-namespace MetodosNumericos{
-
+namespace MetodosNumericos
+{
 	void Integracion::reglaDelTrapecio(float a, float b, size_t iteraciones)
 	{
 		//Definimos una constante con el valor real de la integral obtenida previamente
@@ -134,8 +134,8 @@ namespace MetodosNumericos{
 	void Interpolacion::espaciosIguales(std::vector<float> X , std::vector<float> Y, float xk)
 	{
 		float h = fabsf(X[1] - X[0]);
-		float grado = X.size() - 1;
 		float k, yk;
+		size_t grado = X.size() - 1;
 		size_t j;
 
 		std::vector<float> Dif_1;
@@ -143,28 +143,81 @@ namespace MetodosNumericos{
 		std::vector<float> Dif_3;
 		std::vector<float> Dif_4;
 
-
-		//Obtenemos la primer parte de las diferencias finitas hacia delante
-		Dif_1 = obtenerDiferencias(Y);
-		Dif_2 = obtenerDiferencias(Dif_1);
-		Dif_3 = obtenerDiferencias(Dif_2);
-		Dif_4 = obtenerDiferencias(Dif_3);
-
-		//Obtenemos la segunda parte de las diferencias finitas hacia atras
-		for(size_t i = 0; i < Dif_1.size(); ++i){ Dif_4.push_back(Dif_4[0]); }
-		Dif_3 = obtenerDiferencias(Dif_3,Dif_4,true);
-		Dif_2 = obtenerDiferencias(Dif_2,Dif_3,true);
-		Dif_1 = obtenerDiferencias(Dif_1,Dif_2,true);
-
-		printDiferencias(Dif_1,Dif_2,Dif_3,Dif_4);
-
 		for(size_t i = 0; not (xk < X[i] and xk > X[i-1]); ++i){
 			j=i-1;
 		}
 
-		k = (xk-X[j])/h;
-		yk = combinacion(k,0)*Y[0] + combinacion(k,1)*Dif_1[j] + combinacion(k,2)*Dif_2[j] + combinacion(k,3)*Dif_3[j] + combinacion(k,4)*Dif_4[j];
+		switch( grado ){
+			case 1:
+				Dif_2 = {0,0,0,0};
+				Dif_3 = {0,0,0,0};
+				Dif_4 = {0,0,0,0};
+
+				//Obtenemos la primer parte de las diferencias finitas hacia delante
+				Dif_1 = obtenerDiferencias(Y);
+
+				//Obtenemos la segunda parte de las diferencias finitas hacia atras
+				for(size_t i = 0; i < Y.size(); ++i){ Dif_1.push_back(Dif_1[0]); }
+				printDiferencias(Dif_1,Dif_2,Dif_3,Dif_4);
+				k = (xk-X[j])/h;
+				yk = combinacion(k,0)*Y[0] + combinacion(k,1)*Dif_1[j] + combinacion(k,2)*Dif_2[j] + combinacion(k,3)*Dif_3[j] + combinacion(k,4)*Dif_4[j];
+				break;
+
+				case 2:
+				Dif_3 = {0,0,0,0};
+				Dif_4 = {0,0,0,0};
+
+				Dif_1 = obtenerDiferencias(Y);
+				Dif_2 = obtenerDiferencias(Dif_1);
+
+				for(size_t i = 0; i < Dif_1.size(); ++i){ Dif_2.push_back(Dif_2[0]); }
+				Dif_1 = obtenerDiferencias(Dif_1,Dif_2,true);
+				printDiferencias(Dif_1,Dif_2,Dif_3,Dif_4);
+				k = (xk-X[j])/h;
+				yk = combinacion(k,0)*Y[0] + combinacion(k,1)*Dif_1[j] + combinacion(k,2)*Dif_2[j] + combinacion(k,3)*Dif_3[j] + combinacion(k,4)*Dif_4[j];
+				break;
+
+			case 3:
+
+				Dif_4 = {0,0,0,0};
+
+				Dif_1 = obtenerDiferencias(Y);
+				Dif_2 = obtenerDiferencias(Dif_1);
+				Dif_3 = obtenerDiferencias(Dif_2);
+
+				for(size_t i = 0; i < Dif_1.size(); ++i){ Dif_3.push_back(Dif_3[0]); }
+				Dif_2 = obtenerDiferencias(Dif_2,Dif_3,true);
+				Dif_1 = obtenerDiferencias(Dif_1,Dif_2,true);
+				printDiferencias(Dif_1,Dif_2,Dif_3,Dif_4);
+				k = (xk-X[j])/h;
+				yk = combinacion(k,0)*Y[0] + combinacion(k,1)*Dif_1[j] + combinacion(k,2)*Dif_2[j] + combinacion(k,3)*Dif_3[j] + combinacion(k,4)*Dif_4[j];
+				break;
+
+			case 4:
+				Dif_1 = obtenerDiferencias(Y);
+				Dif_2 = obtenerDiferencias(Dif_1);
+				Dif_3 = obtenerDiferencias(Dif_2);
+				Dif_4 = obtenerDiferencias(Dif_3);
+
+				for(size_t i = 0; i < Dif_1.size(); ++i){ Dif_4.push_back(Dif_4[0]); }
+				Dif_3 = obtenerDiferencias(Dif_3,Dif_4,true);
+				Dif_2 = obtenerDiferencias(Dif_2,Dif_3,true);
+				Dif_1 = obtenerDiferencias(Dif_1,Dif_2,true);
+				printDiferencias(Dif_1,Dif_2,Dif_3,Dif_4);
+				k = (xk-X[j])/h;
+				yk = combinacion(k,0)*Y[0] + combinacion(k,1)*Dif_1[j] + combinacion(k,2)*Dif_2[j] + combinacion(k,3)*Dif_3[j] + combinacion(k,4)*Dif_4[j];
+				break;
+
+			default:
+				std::cout << "Solo se pueden obtener interpolaciones hasta polinomios de grado 4." << std::endl;
+				return;
+		}
 		std::cout << "f(xk) = "<< redondear(yk) << std::endl;
+
+	}
+
+	void Interpolacion::polinomioNewton(std::vector<float> X, std::vector<float>, float xk)
+	{
 
 	}
 
