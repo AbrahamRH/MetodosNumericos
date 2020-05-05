@@ -20,7 +20,7 @@
  * @file driverProgram.cpp
  * @brief Driver Program para los metodos numéricos
  * @author AbrahamRH
- * @version 1.6
+ * @version 1.7
  * @date 2020-04-22
  */
 
@@ -35,8 +35,8 @@ int main()
 	integral.reglasDeSimpson(.5,1.25,3); */
 
 	Interpolacion metodos;
-	metodos.espaciosIguales({0,1,2},{1,3,12},1.5);
-	metodos.polinomioNewton({.1,.4,.7,1},{1.105,1.492,2.014,2.718},1);
+	metodos.espaciosIguales({.1,.4,.7,1},{1.105,1.492,2.014,2.718},.5);
+	metodos.polinomioNewton({.1,.4,.7,1},{1.105,1.492,2.014,2.718},.5);
 	return 0;
 }
 

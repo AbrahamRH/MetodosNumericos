@@ -20,7 +20,7 @@
  * @file MetodosNumericos.cpp
  * @brief Implementación de metodos numéricos en c++
  * @author AbrahamRH
- * @version 1.6
+ * @version 1.7
  * @date 2020-04-20
  */
 
@@ -212,13 +212,16 @@ namespace MetodosNumericos
 				std::cout << "Solo se pueden obtener interpolaciones hasta polinomios de grado 4." << std::endl;
 				return;
 		}
-		std::cout << "f(xk) = "<< redondear(yk) << std::endl;
+		std::cout << std::endl << "f("<< xk << ") = "<< redondear(yk) << std::endl << std::endl;
+		std::cout << "=====================================" << std::endl;
 
 	}
 
 	void Interpolacion::polinomioNewton(std::vector<float> X, std::vector<float> Y, float xk)
 	{
+		float y = 0;
 		std::vector<float> valoresB;
+
 		for(size_t i = 0; i < X.size(); ++i){
 			valoresB.push_back(obtenerB(X,Y,i,0));
 		}
@@ -228,7 +231,17 @@ namespace MetodosNumericos
 			std::cout << "\tb_" << i << " = " << valoresB[i] << std::endl;
 		}
 
-		//TODO: Obtener interpolación para xk y obtener los pasos de obtencion de b
+		for(size_t i = 0; i < valoresB.size(); ++i ){
+			float x = 1;
+			for(size_t j = 0; j < i; ++j){
+				x *= (xk-X[j]);
+			}
+			y += valoresB[i]*x;
+		}
+
+		std::cout << std::endl << "f("<< xk << ") = "<< redondear(y) << std::endl << std::endl;
+		std::cout << "=====================================" << std::endl;
+
  	}
 
 	float obtenerB(std::vector<float>& X, std::vector<float>& Y, size_t fin, size_t inicio){
@@ -269,7 +282,6 @@ namespace MetodosNumericos
 			else
 				std::cout << std::fixed << std::setprecision(4) << " " << Dif_1[i] << " | " << Dif_2[i] << " | " << Dif_3[i] << " | " << Dif_4[i] << std::endl;
 		}
-		std::cout << "==========================================" << std::endl << std::endl;
 	}
 
 	float redondear(float n){ return (int)(n * 10000.0)/10000.0; };

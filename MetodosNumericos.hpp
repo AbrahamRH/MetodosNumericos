@@ -20,7 +20,7 @@
  * @file MetodosNumericos.hpp
  * @brief Fichero de cabecera para el archivo de métodos numéricos
  * @author AbrahamRH
- * @version 1.6
+ * @version 1.7
  * @date 2020-04-22
  */
 
@@ -81,13 +81,21 @@ namespace MetodosNumericos{
 		 *
 		 * @param std::vector Tabla de valores de la variable independiente X
 		 * @param std::vector	Tabla de valores de la variable dependiente Y
-		 * @param float Valor que se busca que se busca estimar para la función tabular
+		 * @param float Valor que se busca estimar para la función tabular
 		 */
 		/* -------------------------------*/
 		void espaciosIguales(std::vector<float>, std::vector<float>, float);
 
 
-
+		/* -------------------------------*/
+		/**
+		 * @brief Aplicación del método de polinomio de Newton para interpolación para polinómios de grado n
+		 *
+		 * @param std::vector Tabla de valores de la variable independiente X
+		 * @param std::vector	Tabla de valores de la variable dependiente Y
+		 * @param float Valor que se quieres estimar para la función tabular
+		 */
+		/* -------------------------------*/
 		void polinomioNewton(std::vector<float>, std::vector<float>, float);
 	};
 
@@ -134,7 +142,7 @@ namespace MetodosNumericos{
 
 		/* -------------------------------*/
 		/**
-		 * @brief Función para obtener vectores de las diferencias finitas (Tabla de diferencias finitas )
+		 * @brief Función para obtener vectores de las diferencias finitas (Tabla de diferencias finitas)
 		 *
 		 * @param std::vector Tabla de X (si unicamente se pasa este parámetro), ó vector de la diferencia que se deseaobtener, haciendo obteniendo las diferencias hacia atrás.
 		 * @param std::optional Vector (opcional) apartir del cual se obtendran las diferencias hacia atrás.
@@ -150,7 +158,7 @@ namespace MetodosNumericos{
 		/**
 		 * @brief Función para imprimir las diferencias en forma de tabla
 		 *
-		 * @param std::vector Vcetor con la diferencia 1
+		 * @param std::vector Vector con la diferencia 1
 		 * @param std::vector Vector con la diferencia 2
 		 * @param std::vector Vector con la diferencia 3
 		 * @param std::vector Vector con la diferencia 4
@@ -159,6 +167,18 @@ namespace MetodosNumericos{
 		void printDiferencias(std::vector<float> ,std::vector<float> ,std::vector<float> ,std::vector<float>);
 
 
+		/* -------------------------------*/
+		/**
+		 * @brief Función recursiva para obtener los valoes de b de la interpolación de Newton
+		 *
+		 * @param std::vector& referencia al vector con los valores de x
+		 * @param std::vector& referencia al vector con los valores de f(x)
+		 * @param size_t Indice que apunta al valor final del rango del vector
+		 * @param size_t Indice que apunta al valor inicial del rango del vector
+		 *
+		 * @return valor del coeficiente b
+		 */
+		/* -------------------------------*/
 		float obtenerB(std::vector<float> &, std::vector<float> &, size_t, size_t);
 
 }
